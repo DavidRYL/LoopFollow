@@ -14,6 +14,8 @@ jobs:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           GH_PAT: ${{ secrets.GH_PAT }}
           GITHUB_REPOSITORY_OWNER: ${{ secrets.GITHUB_REPOSITORY_OWNER }}
+          FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+          FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
         run: |
           echo "y" | bundle exec fastlane match nuke distribution
           bundle exec fastlane match appstore
