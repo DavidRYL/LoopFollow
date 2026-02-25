@@ -19,7 +19,12 @@ jobs:
           TEAMID: ${{ secrets.TEAMID }}
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
         run: |
+          echo "$FASTLANE_KEY" > fastlane/api_key.p8
           bundle exec fastlane match appstore \
             --force \
             --skip_provisioning_profiles true \
+            --api_key_path fastlane/api_key.p8 \
+            --api_key_issuer_id "$FASTLANE_ISSUER_ID" \
+            --api_key_key_id "$FASTLANE_KEY_ID" \
             --git_basic_authorization $(echo -n "$GITHUB_REPOSITORY_OWNER:$GH_PAT" | base64)
+          rm -f fastlane/api_key.p8
