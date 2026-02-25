@@ -18,5 +18,11 @@ jobs:
           APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
           APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
         run: |
-          fastlane match nuke distribution --skip_confirmation
-          fastlane match appstore
+          echo "$APP_STORE_CONNECT_API_KEY_CONTENT" > api_key.json
+          fastlane match nuke distribution \
+            --skip_confirmation \
+            --api_key_path api_key.json
+          fastlane match appstore \
+            --api_key_path api_key.json \
+            --git_basic_authorization $(echo -n "$GITHUB_REPOSITORY_OWNER:$GH_PAT" | base64)
+          rm api_key.json
