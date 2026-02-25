@@ -7,6 +7,8 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: bundle install
       - name: Nuke and recreate certs
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
