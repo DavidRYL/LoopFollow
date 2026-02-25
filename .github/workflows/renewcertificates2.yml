@@ -1,0 +1,17 @@
+name: Renew Certificates
+on:
+  workflow_dispatch:
+
+jobs:
+  renew:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Nuke and recreate certs
+        env:
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+          GITHUB_REPOSITORY_OWNER: ${{ secrets.GITHUB_REPOSITORY_OWNER }}
+        run: |
+          fastlane match nuke distribution --confirm_nuke true
+          fastlane match appstore
