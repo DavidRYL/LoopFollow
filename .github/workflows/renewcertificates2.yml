@@ -9,13 +9,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install dependencies
         run: bundle install
-      - name: Nuke and recreate certs
+      - name: Recreate certs
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           GH_PAT: ${{ secrets.GH_PAT }}
-          GITHUB_REPOSITORY_OWNER: ${{ secrets.GITHUB_REPOSITORY_OWNER }}
-          FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
-          FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+          FASTLANE_ISSUER_ID: ${{ secrets.FASTLANE_ISSUER_ID }}
+          FASTLANE_KEY: ${{ secrets.FASTLANE_KEY }}
+          FASTLANE_KEY_ID: ${{ secrets.FASTLANE_KEY_ID }}
+          TEAMID: ${{ secrets.TEAMID }}
         run: |
-          echo "y" | bundle exec fastlane match nuke distribution
-          bundle exec fastlane match appstore
+          bundle exec fastlane match appstore --force
