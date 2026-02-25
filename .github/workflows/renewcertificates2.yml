@@ -21,4 +21,5 @@ jobs:
         run: |
           bundle exec fastlane match appstore \
             --force \
+            --skip_provisioning_profiles true \
             --git_basic_authorization $(echo -n "$GITHUB_REPOSITORY_OWNER:$GH_PAT" | base64)
