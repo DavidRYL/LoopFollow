@@ -13,5 +13,5 @@ jobs:
           GH_PAT: ${{ secrets.GH_PAT }}
           GITHUB_REPOSITORY_OWNER: ${{ secrets.GITHUB_REPOSITORY_OWNER }}
         run: |
-          fastlane match nuke distribution --confirm_nuke true
-          fastlane match appstore
+          echo "y" | bundle exec fastlane match nuke distribution
+          bundle exec fastlane match appstore
